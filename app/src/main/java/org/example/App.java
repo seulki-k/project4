@@ -14,20 +14,22 @@ public class App {
         try (ServerSocket socket = new ServerSocket(8888, 2)) {
             System.out.println("플레이어를 기다리는 중....");
 
-                // 사용자 입장
-                Socket s1 = socket.accept();
-                System.out.println("대기 중인 사용자 중 첫 번째 멤버가 입장하였습니다. !");
-                // 클라이언트 소켓을 닫기 위해 try-with-resources 사용
+            // 사용자 입장
+            Socket s1 = socket.accept();
+            System.out.println("첫 번째 멤버가 입장하였습니다. !");
+            // 클라이언트 소켓을 닫기 위해 try-with-resources 사용
+            PrintStream out = new PrintStream(s1.getOutputStream());
+            Scanner in = new Scanner(s1.getInputStream());
 
-                Socket s2 = socket.accept();
-                System.out.println("대기 중인 사용자 중 두 번째 멤버가 입장하였습니다. !");
+            Socket s2 = socket.accept();
+            System.out.println("두 번째 멤버가 입장하였습니다. !");
+            PrintStream out2 = new PrintStream(s2.getOutputStream());
+            Scanner in2 = new Scanner(s2.getInputStream());
+            out.println("start");
 
+            System.out.println("게임을 시작합니다.");
             while (true) {
-                PrintStream out = new PrintStream(s1.getOutputStream());
-                Scanner in = new Scanner(s1.getInputStream());
 
-                PrintStream out2 = new PrintStream(s2.getOutputStream());
-                Scanner in2 = new Scanner(s2.getInputStream());
 
                 // 키보드 입력을 받아서 서버1,2에게 전송한다.
                 System.out.print("입력> ");
@@ -45,7 +47,7 @@ public class App {
                 String str2 = in2.nextLine();
                 System.out.println(str2);
                 // 서버1에게 전송
-                out.printf(str2);
+                out.println(str2);
 
             }
 
