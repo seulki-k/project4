@@ -1,59 +1,67 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Test {
 
     private static final int FINISH_LINE = 50;  // 결승선 위치
     private static final int WIN_MOVE = 6;      // 승리 시 이동 칸 수
     private static final int DRAW_MOVE = 3;     // 비기기 시 이동 칸 수
+    private static final int NUM_PLAYERS = 3;   // 플레이어 수
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         // 플레이어와 말의 초기화
         System.out.println("가위 바위 보 경마 게임에 오신 것을 환영합니다!");
-        System.out.println("플레이어 1과 플레이어 2가 각자 말을 선택하고 경주를 시작합니다.");
+        System.out.println("각 플레이어가 자신의 말을 선택하고 경주를 시작합니다.");
 
-        String player1Horse = getHorseName("플레이어 1");
-        String player2Horse = getHorseName("플레이어 2");
+        List<String> horseNames = new ArrayList<>();
+        for (int i = 1; i <= NUM_PLAYERS; i++) {
+            horseNames.add(getHorseName("플레이어 " + i));
+        }
 
-        int player1Position = 0;
-        int player2Position = 0;
+        int[] positions = new int[NUM_PLAYERS];
 
         System.out.println("경기가 시작됩니다!");
 
-        while (player1Position < FINISH_LINE && player2Position < FINISH_LINE) {
+        while (true) {
             System.out.println("\n가위 바위 보를 입력하세요. (가위 / 바위 / 보)");
 
             // 플레이어의 선택 입력
-            String player1Choice = getPlayerChoice("플레이어 1");
-            String player2Choice = getPlayerChoice("플레이어 2");
+            List<String> choices = new ArrayList<>();
+            for (int i = 1; i <= NUM_PLAYERS; i++) {
+                choices.add(getPlayerChoice("플레이어 " + i));
+            }
 
             // 게임 결과 결정
-            String result = determineOutcome(player1Choice, player2Choice);
+            String result = determineOutcome(choices);
             System.out.println("결과: " + result);
 
             // 결과에 따라 말 이동
-            switch (result) {
-                case "플레이어 1 승리":
-                    player1Position += WIN_MOVE;
-                    break;
-                case "플레이어 2 승리":
-                    player2Position += WIN_MOVE;
-                    break;
-                case "무승부":
-                    player1Position += DRAW_MOVE;
-                    player2Position += DRAW_MOVE;
-                    break;
+            for (int i = 0; i < NUM_PLAYERS; i++) {
+                if (result.contains("플레이어 " + (i + 1) + " 승리")) {
+                    positions[i] += WIN_MOVE;
+                } else if (result.equals("무승부")) {
+                    positions[i] += DRAW_MOVE;
+                }
             }
 
             // 위치 업데이트
-            if (player1Position > FINISH_LINE) player1Position = FINISH_LINE;
-            if (player2Position > FINISH_LINE) player2Position = FINISH_LINE;
+            for (int i = 0; i < NUM_PLAYERS; i++) {
+                if (positions[i] > FINISH_LINE) positions[i] = FINISH_LINE;
+            }
 
             clearConsole();
-            printRaceTrack(player1Horse, player1Position, player2Horse, player2Position, FINISH_LINE);
+            printRaceTrack(horseNames, positions, FINISH_LINE);
+
+            if (isRaceFinished(positions)) {
+                break;
+            }
 
             try {
                 Thread.sleep(1000); // 1초 대기
@@ -63,13 +71,7 @@ public class Test {
         }
 
         clearConsole();
-        if (player1Position >= FINISH_LINE && player2Position >= FINISH_LINE) {
-            System.out.println("\n경기가 종료되었습니다! 무승부입니다!");
-        } else if (player1Position >= FINISH_LINE) {
-            System.out.println("\n" + player1Horse + "가(이) 승리했습니다!");
-        } else {
-            System.out.println("\n" + player2Horse + "가(이) 승리했습니다!");
-        }
+        announceWinner(positions, horseNames);
 
         scanner.close();
     }
@@ -104,50 +106,112 @@ public class Test {
         return choice;
     }
 
-    private static String determineOutcome(String player1Choice, String player2Choice) {
-        if (player1Choice.equals(player2Choice)) {
+    private static String determineOutcome(List<String> choices) {
+        List<String> winners = new ArrayList<>();
+        Set<String> uniqueChoices = new HashSet<>(choices);
+
+        // 모든 선택이 서로 다를 경우 무승부 처리
+        if (uniqueChoices.size() == NUM_PLAYERS) {
             return "무승부";
         }
 
-        if ((player1Choice.equals("가위") && player2Choice.equals("보")) ||
-                (player1Choice.equals("바위") && player2Choice.equals("가위")) ||
-                (player1Choice.equals("보") && player2Choice.equals("바위"))) {
-            return "플레이어 1 승리";
+        // 승리 조건을 평가합니다.
+        String[] choiceArray = choices.toArray(new String[0]);
+        boolean[] isWinner = new boolean[NUM_PLAYERS];
+
+        for (int i = 0; i < NUM_PLAYERS; i++) {
+            boolean winner = true;
+            for (int j = 0; j < NUM_PLAYERS; j++) {
+                if (i != j) {
+                    String result = getMatchResult(choiceArray[i], choiceArray[j]);
+                    if (result.equals("패배")) {
+                        winner = false;
+                        break;
+                    }
+                }
+            }
+            isWinner[i] = winner;
+        }
+
+        // 결과를 승리로 설정
+        for (int i = 0; i < NUM_PLAYERS; i++) {
+            if (isWinner[i]) {
+                winners.add("플레이어 " + (i + 1) + " 승리");
+            }
+        }
+
+        if (winners.isEmpty()) {
+            return "무승부";
         } else {
-            return "플레이어 2 승리";
+            return String.join(", ", winners);
         }
     }
 
-    private static void printRaceTrack(String player1Horse, int player1Position, String player2Horse, int player2Position, int finishLine) {
-        StringBuilder track1 = new StringBuilder();
-        StringBuilder track2 = new StringBuilder();
+    private static String getMatchResult(String choice1, String choice2) {
+        if (choice1.equals(choice2)) {
+            return "무승부";
+        }
 
-        // 플레이어 1의 트랙
+        if ((choice1.equals("가위") && choice2.equals("보")) ||
+                (choice1.equals("바위") && choice2.equals("가위")) ||
+                (choice1.equals("보") && choice2.equals("바위"))) {
+            return "승리";
+        } else {
+            return "패배";
+        }
+    }
+
+    private static void printRaceTrack(List<String> horseNames, int[] positions, int finishLine) {
+        StringBuilder[] tracks = new StringBuilder[NUM_PLAYERS];
+        for (int i = 0; i < NUM_PLAYERS; i++) {
+            tracks[i] = new StringBuilder();
+        }
+
         for (int i = 0; i <= finishLine; i++) {
-            if (i == player1Position) {
-                track1.append("🏇");
-            } else {
-                track1.append(" ");
+            for (int j = 0; j < NUM_PLAYERS; j++) {
+                if (i == positions[j]) {
+                    tracks[j].append("🏇");
+                } else {
+                    tracks[j].append(" ");
+                }
             }
         }
-        track1.append("🏁"); // 결승선 추가
 
-        // 플레이어 2의 트랙
-        for (int i = 0; i <= finishLine; i++) {
-            if (i == player2Position) {
-                track2.append("🏇");
-            } else {
-                track2.append(" ");
+        for (int i = 0; i < NUM_PLAYERS; i++) {
+            tracks[i].append("🏁");
+        }
+
+        System.out.println("------------------------------------------------------------");
+        for (int i = 0; i < NUM_PLAYERS; i++) {
+            System.out.println(horseNames.get(i) + " " + tracks[i].toString());
+            System.out.println("------------------------------------------------------------");
+        }
+    }
+
+    private static boolean isRaceFinished(int[] positions) {
+        for (int position : positions) {
+            if (position >= FINISH_LINE) {
+                return true;
             }
         }
-        track2.append("🏁"); // 결승선 추가
+        return false;
+    }
 
-        // 트랙과 결승선을 출력합니다.
-        System.out.println("------------------------------------------------------------");
-        System.out.println(player1Horse + " " + track1.toString());
-        System.out.println("------------------------------------------------------------");
-        System.out.println(player2Horse + " " + track2.toString());
-        System.out.println("------------------------------------------------------------");
+    private static void announceWinner(int[] positions, List<String> horseNames) {
+        List<String> winners = new ArrayList<>();
+        for (int i = 0; i < NUM_PLAYERS; i++) {
+            if (positions[i] >= FINISH_LINE) {
+                winners.add(horseNames.get(i));
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\n경기가 종료되었습니다! 승자는 " + String.join(", ", winners) + "입니다!");
+        } else if (winners.size() == 1) {
+            System.out.println("\n" + winners.get(0) + "가(이) 승리했습니다!");
+        } else {
+            System.out.println("\n경기가 종료되었습니다! 무승부입니다!");
+        }
     }
 
     private static void clearConsole() {
