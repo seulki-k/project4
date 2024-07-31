@@ -38,7 +38,6 @@ public class JoinRoom {
         //마지막 플레이어 입장했다는 신호 수신
         String str = in.nextLine();
         System.out.println("경기가 시작됩니다!");
-        while (true) {
             System.out.println("사용자1 이 입력 중입니다.");
             // 서버가 보낸 데이터를 수신한다.
             str = in.nextLine();
@@ -58,14 +57,11 @@ public class JoinRoom {
             for (int i = 0; i < 3; i++) {
                 str = in.nextLine();
                 System.out.println(str);
-            }
-
         }
     }
 
     public static void thirdPlayer(PrintStream out, Scanner in) throws Exception {
         System.out.println("경기가 시작됩니다!");
-        while (true) {
             System.out.println("사용자1 이 입력 중입니다.");
             // 서버가 보낸 데이터를 수신한다.
             String str = in.nextLine();
@@ -85,7 +81,7 @@ public class JoinRoom {
             for (int i = 0; i < 3; i++) {
                 str = in.nextLine();
                 System.out.println(str);
-            }
+
         }
     }
 }
