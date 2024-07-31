@@ -11,7 +11,6 @@ public class Test2JoinRoom {
     public static void main(String[] args) {
 
 
-
 //        System.out.print("접속할 주소를 입력해주세요 : ");
 //        String login = scanner.nextLine();
 
@@ -79,7 +78,23 @@ public class Test2JoinRoom {
                 } else {
                     System.out.println(str); // 틀린 값으로 다시 입력하세요.
                 }
+            } //묵찌빠 완료
+            System.out.println(in.nextLine());
+
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(1000); // 1초 대기
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.print(".\n");
             }
+            System.out.println(in.nextLine()); //결과 출력
+
+
+
+
+
         }
 
     }
@@ -127,9 +142,26 @@ public class Test2JoinRoom {
                 } else {
                     System.out.println(str); // 틀린 값으로 다시 입력하세요.
                 }
-            }
-        }
+            }//묵찌빠 완료
+            System.out.println(in.nextLine());
 
+            for (int i = 0; i < 3; i++) {
+                try {
+                    Thread.sleep(1000); // 1초 대기
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.print(".\n");
+            }
+
+            System.out.println(in.nextLine()); //결과 출력
+
+
+
+
+
+
+        }
     }
 }
 

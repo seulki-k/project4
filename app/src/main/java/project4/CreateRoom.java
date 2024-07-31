@@ -98,7 +98,8 @@ public class CreateRoom {
                 }//묵찌빠 저장 완료
 
                 System.out.println("묵찌빠 완료");
-                //여기까지 joinRoom에서 수신
+                out.println("묵찌빠 완료");
+                out2.println("묵찌빠 완료");
 
                 // 게임 결과 결정
                 String result = determineOutcome(choices);
@@ -113,6 +114,10 @@ public class CreateRoom {
                 }
 
                 System.out.println("[결과] " + result);
+                out.println("[결과] " + result);
+                out2.println("[결과] " + result);
+
+                //여기까지 joinRoom에서 수신
 
 
                 // 결과에 따라 말 이동 및 연속 승리 횟수 업데이트
