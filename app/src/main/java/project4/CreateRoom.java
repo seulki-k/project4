@@ -11,7 +11,7 @@ public class CreateRoom {
     private static final int DRAW_MOVE = 3;     // 비기기 시 이동 칸 수
     private static final int BURNING_MOVE = 3;  // 버닝 효과로 추가 이동 칸 수
     private static final int NUM_PLAYERS = 3;   // 플레이어 수
-    private static int win;
+    private static List<String> horseNames; // 플레이어 말 이름 저장되는 List
     public static void execute() {
         Scanner scanner = new Scanner(System.in);
         // 8888포트 사용, 대기 인원 총 2명.
@@ -34,15 +34,15 @@ public class CreateRoom {
             out.println("start");
             out2.println("start");
 
+            horseNames =  new ArrayList<>();
             // 게임 스타트
-            List<String> horseNames = new ArrayList<>(); // 플레이어 말 이름 저장되는 List
+
             int[] positions = new int[NUM_PLAYERS]; // 말 위치
             int[] winStreaks = new int[NUM_PLAYERS];  // 연속 승리 횟수를 추적
-
+            // 닉네임 설정
             SetName(scanner, out, out2, horseNames, in, in2);
             System.out.println("경기가 시작됩니다!");
             while (true) {
-                // 닉네임 설정
 
                 System.out.println(" ");
                 System.out.println(" ");
@@ -98,6 +98,7 @@ public class CreateRoom {
                 }//묵찌빠 저장 완료
 
                 System.out.println("묵찌빠 완료");
+                //여기까지 joinRoom에서 수신
 
                 // 게임 결과 결정
                 String result = determineOutcome(choices);
@@ -116,12 +117,12 @@ public class CreateRoom {
 
                 // 결과에 따라 말 이동 및 연속 승리 횟수 업데이트
                 for (int i = 0; i < NUM_PLAYERS; i++) {
-                    if (result.contains("플레이어 " + (i + 1) + " 승리")) {
+                    if (result.contains(horseNames.get(i) + " 승리")) {
                         positions[i] += WIN_MOVE;
                         winStreaks[i]++;
                         if (winStreaks[i] >= 2) {  // 두 번 연속 승리 시
                             positions[i] += BURNING_MOVE;
-                            System.out.println("🔥플레이어 " + (i + 1) + " 버닝!🔥");
+                            System.out.println("🔥 " + horseNames.get(i) + " 버닝!🔥");
                             System.out.println("🔥추가 " + BURNING_MOVE + "칸 이동!🔥");
                         }
                     } else if (result.equals("무승부")) {
@@ -230,8 +231,7 @@ public class CreateRoom {
         // 결과를 승리로 설정
         for (int i = 0; i < NUM_PLAYERS; i++) {
             if (isWinner[i]) {
-                winners.add("플레이어 " + (i + 1) + " 승리");
-                win = i;
+                winners.add(horseNames.get(i) + " 승리");
             }
         }
 

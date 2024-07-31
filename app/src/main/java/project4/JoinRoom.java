@@ -10,6 +10,7 @@ public class JoinRoom {
 
     public static void execute() {
 
+
 //        System.out.print("접속할 주소를 입력해주세요 : ");
 //        String login = scanner.nextLine();
 
@@ -56,30 +57,30 @@ public class JoinRoom {
             str = in.nextLine();
             System.out.println(str);
         }
-
-        System.out.println(" ");
-        System.out.println(" ");
-        System.out.println(" ");
-        System.out.println("\n✊✌️✋");
-
-        //묵찌빠 값 전달
-
         while (true) {
-            str = in.nextLine();
-            System.out.println(str); //묵,찌, 빠 중에 골라라
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println("\n✊✌️✋");
 
-            input = scanner.nextLine();
-            out.println(input); // 값 전달
+            //묵찌빠 값 전달
+            while (true) {
+                str = in.nextLine();
+                System.out.println(str); //묵,찌, 빠 중에 골라라
 
-            str = in.nextLine(); //저장 결과
+                input = scanner.nextLine();
+                out.println(input); // 값 전달
 
-            if (str.equals("success")) {
-                break;
-            } else {
-                System.out.println(str); // 틀린 값으로 다시 입력하세요.
+                str = in.nextLine(); //저장 결과
+
+                if (str.equals("success")) {
+                    break;
+                } else {
+                    System.out.println(str); // 틀린 값으로 다시 입력하세요.
+                }
             }
         }
-        str = in.nextLine();
+
     }
 
     public static void thirdPlayer(PrintStream out, Scanner in) throws Exception {
@@ -104,30 +105,30 @@ public class JoinRoom {
             str = in.nextLine();
             System.out.println(str);
         }
-
-        System.out.println(" ");
-        System.out.println(" ");
-        System.out.println(" ");
-        System.out.println("\n✊✌️✋");
-
-        //묵찌빠 값 전달
-
         while (true) {
-            str = in.nextLine();
-            System.out.println(str); //묵,찌, 빠 중에 골라라
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println(" ");
+            System.out.println("\n✊✌️✋");
 
-            input = scanner.nextLine();
-            out.println(input); // 값 전달
+            //묵찌빠 값 전달
+            while (true) {
+                str = in.nextLine();
+                System.out.println(str); //묵,찌, 빠 중에 골라라
 
-            str = in.nextLine(); // 저장 결과
+                input = scanner.nextLine();
+                out.println(input); // 값 전달
 
-            if (str.equals("success")) {
-                break;
-            } else {
-                System.out.println(str); // 틀린 값으로 다시 입력하세요.
+                str = in.nextLine(); //저장 결과
+
+                if (str.equals("success")) {
+                    break;
+                } else {
+                    System.out.println(str); // 틀린 값으로 다시 입력하세요.
+                }
             }
         }
-        str = in.nextLine();
+
     }
 }
 
