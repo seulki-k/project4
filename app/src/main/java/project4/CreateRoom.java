@@ -117,18 +117,25 @@ public class CreateRoom {
                 out.println("[결과] " + result);
                 out2.println("[결과] " + result);
 
-                //여기까지 joinRoom에서 수신
-
-
                 // 결과에 따라 말 이동 및 연속 승리 횟수 업데이트
+                String burning1 = "";
+                String burning2 = "";
+                int count =0;
                 for (int i = 0; i < NUM_PLAYERS; i++) {
                     if (result.contains(horseNames.get(i) + " 승리")) {
                         positions[i] += WIN_MOVE;
                         winStreaks[i]++;
                         if (winStreaks[i] >= 2) {  // 두 번 연속 승리 시
+                            count++;
                             positions[i] += BURNING_MOVE;
-                            System.out.println("🔥 " + horseNames.get(i) + " 버닝!🔥");
-                            System.out.println("🔥추가 " + BURNING_MOVE + "칸 이동!🔥");
+                            burning1 = "🔥 " + horseNames.get(i) + " 버닝!🔥";
+                            System.out.println(burning1);
+                            out.println(burning1);
+                            out2.println(burning1);
+                            burning2 = "🔥추가 " + BURNING_MOVE + "칸 이동!🔥";
+                            System.out.println(burning2);
+                            out.println(burning2);
+                            out2.println(burning2);
                         }
                     } else if (result.equals("무승부")) {
                         positions[i] += DRAW_MOVE;
@@ -138,13 +145,78 @@ public class CreateRoom {
                     }
                 }
 
+                if (count==0){
+                    out.println("noburning");
+                    out2.println("noburning");
+                }else {
+                    //버닝 확인 종료
+                    out.println("burning");
+                    out2.println("burning");
+                }
+
+                //여기까지 joinRoom에서 수신
+
+
                 // 위치 업데이트
                 for (int i = 0; i < NUM_PLAYERS; i++) {
                     if (positions[i] > FINISH_LINE) positions[i] = FINISH_LINE;
                 }
 
                 clearConsole();
-                printRaceTrack(horseNames, positions, FINISH_LINE);
+
+
+
+//                printRaceTrack(horseNames, positions, FINISH_LINE);
+
+
+
+//aaaa
+                StringBuilder[] tracks = new StringBuilder[NUM_PLAYERS];
+                for (int i = 0; i < NUM_PLAYERS; i++) {
+                    tracks[i] = new StringBuilder();
+                }
+
+                for (int i = 0; i <= FINISH_LINE; i++) {
+                    for (int j = 0; j < NUM_PLAYERS; j++) {
+                        if (i == positions[j]) {
+                            tracks[j].append("🏇");
+                        } else {
+                            tracks[j].append(" ");
+                        }
+                    }
+                }
+
+                for (int i = 0; i < NUM_PLAYERS; i++) {
+                    tracks[i].append("🏁");
+                }
+
+                System.out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
+                out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
+                out2.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
+
+                for (int i = 0; i < NUM_PLAYERS; i++) {
+                    System.out.println(horseNames.get(i) + " " + tracks[i].toString());
+                    out.println(horseNames.get(i) + " " + tracks[i].toString());
+                    out2.println(horseNames.get(i) + " " + tracks[i].toString());
+                    System.out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
+                    out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
+                    out2.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
+
+                }
+
+                //aaaa
+
+
+
+
+
+
+
+
+
+
+
+
 
                 if (isRaceFinished(positions)) {
                     break;
