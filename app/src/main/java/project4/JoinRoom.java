@@ -40,7 +40,7 @@ public class JoinRoom {
         System.out.println("사용자1 이 입력 중입니다.");
         // 서버가 보낸 데이터를 수신한다.
         str = in.nextLine();
-        System.out.println(str);
+        System.out.println("1번 플레이어 : " + str);
         // 키보드 입력을 받아서 서버에게 전송한다.
         System.out.print("말 이름을 입력하세요 (두 글자): ");
         String input = scanner.nextLine();
@@ -50,7 +50,7 @@ public class JoinRoom {
 
         // 서버가 보낸 데이터를 수신한다.
         str = in.nextLine();
-        System.out.println(str);
+        System.out.println("3번 플레이어 : " + str);
 
         // 말 이름 출력
         for (int i = 0; i < 3; i++) {
@@ -106,13 +106,13 @@ public class JoinRoom {
         System.out.println("사용자1 이 입력 중입니다.");
         // 서버가 보낸 데이터를 수신한다.
         String str = in.nextLine();
-        System.out.println(str);
+        System.out.println("1번 플레이어 : " + str);
 
         System.out.println("사용자2 가 입력 중입니다.");
 
         // 서버가 보낸 데이터를 수신한다.
         str = in.nextLine();
-        System.out.println(str);
+        System.out.println(" 2번 플레이어 : " + str);
         // 키보드 입력을 받아서 서버에게 전송한다.
         System.out.print("말 이름을 입력하세요 (두 글자): ");
         String input = scanner.nextLine();

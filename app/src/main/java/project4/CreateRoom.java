@@ -178,7 +178,7 @@ public class CreateRoom {
 
         // 서버1이 보낸 데이터를 수신한다.
         String str = in.nextLine();
-        System.out.println(str);
+        System.out.println("2번 플레이어 : " + str);
         // 서버 2에게 전송
         out2.println(str);
         horseNames.add(str); // 2번 마 이름
@@ -188,7 +188,7 @@ public class CreateRoom {
 
         // 서버2가 보낸 데이터를 수신한다.
         String str2 = in2.nextLine();
-        System.out.println(str2);
+        System.out.println("3번 플레이어 : " + str2);
         // 서버1에게 전송
         out.println(str2);
         horseNames.add(str2); // 3번 마 이름

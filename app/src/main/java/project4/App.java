@@ -12,9 +12,10 @@ public class App {
 
         while (true) {
             mainMenu(index);
+            String input = scanner.nextLine();
             try {
-                int command = scanner.nextInt();
-                scanner.nextLine();
+                int command = Integer.parseInt(input);
+
                 switch (command) {
                     case 1:
                         CreateRoom.execute();
@@ -27,7 +28,7 @@ public class App {
                     default:
                         System.out.println("잘못된 입력입니다.");
                 }
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("잘못된 입력입니다.");
             }
         }
