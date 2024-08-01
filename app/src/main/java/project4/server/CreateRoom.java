@@ -23,13 +23,13 @@ public class CreateRoom {
             System.out.println("플레이어를 기다리는 중....");
             // 사용자 입장
             Socket s1 = socket.accept();
-            System.out.println("첫 번째 멤버가 입장하였습니다. !");
+            System.out.println("첫 번째 멤버가 입장하였습니다!");
             PrintStream out = new PrintStream(s1.getOutputStream());
             Scanner in = new Scanner(s1.getInputStream());
             out.println("wait");
 
             Socket s2 = socket.accept();
-            System.out.println("두 번째 멤버가 입장하였습니다. !");
+            System.out.println("두 번째 멤버가 입장하였습니다!");
             PrintStream out2 = new PrintStream(s2.getOutputStream());
             Scanner in2 = new Scanner(s2.getInputStream());
             out.println("start");
@@ -194,7 +194,7 @@ public class CreateRoom {
 
             }
         } catch (Exception e) {
-            System.err.println("서버 소켓 처리 중 오류: " + e.getMessage());
+//            System.err.println("서버 소켓 처리 중 오류: " + e.getMessage());
         }
 
     }

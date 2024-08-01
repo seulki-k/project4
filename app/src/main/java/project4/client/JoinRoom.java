@@ -31,7 +31,7 @@ public class JoinRoom {
                 ThirdPlayer.thirdPlayer(out, in);
             }
         } catch (Exception e) {
-            System.err.println("서버 소켓 처리 중 오류: " + e.getMessage());
+
         }
     }
 

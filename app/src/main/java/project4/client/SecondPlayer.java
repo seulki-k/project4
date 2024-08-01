@@ -15,13 +15,25 @@ public class SecondPlayer extends Player {
         // 서버가 보낸 데이터를 수신한다.
         str = in.nextLine();
         System.out.println("1번 플레이어 : " + str);
+
+//
         // 키보드 입력을 받아서 서버에게 전송한다.
-        System.out.print("말 이름을 입력하세요 (두 글자): ");
-        String input = scanner.nextLine();
-        out.println(input);
+
+        String input;
+        String input2;
+        while (true) {
+            System.out.print("말 이름을 입력하세요 (두 글자): ");
+            input = scanner.nextLine();
+            out.println(input);
+            input2 = in.nextLine();
+            if (input2.equals("ok")) {
+                break;
+            }else{
+                System.out.println(input2);
+            }
+        }
 
         System.out.println("사용자3 이 입력 중입니다.");
-
         // 서버가 보낸 데이터를 수신한다.
         str = in.nextLine();
         System.out.println("3번 플레이어 : " + str);
