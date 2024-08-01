@@ -35,6 +35,12 @@ public class ThirdPlayer extends Player{
             System.out.println(" ");
             System.out.println("\n✊✌️✋");
 
+            str = in.nextLine();
+            System.out.println(str);
+
+            str = in.nextLine();
+            System.out.println(str);
+
             //묵찌빠 값 전달
             while (true) {
                 str = in.nextLine();
