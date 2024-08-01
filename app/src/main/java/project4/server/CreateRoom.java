@@ -1,4 +1,4 @@
-package project4;
+package project4.server;
 
 import java.io.PrintStream;
 import java.net.ServerSocket;
@@ -6,12 +6,12 @@ import java.net.Socket;
 import java.util.*;
 
 public class CreateRoom {
-    private static final int FINISH_LINE = 50;  // 결승선 위치
-    private static final int WIN_MOVE = 6;      // 승리 시 이동 칸 수
-    private static final int DRAW_MOVE = 3;     // 비기기 시 이동 칸 수
-    private static final int BURNING_MOVE = 3;  // 버닝 효과로 추가 이동 칸 수
-    private static final int NUM_PLAYERS = 3;   // 플레이어 수
-    private static List<String> horseNames; // 플레이어 말 이름 저장되는 List
+    static final int FINISH_LINE = 50;  // 결승선 위치
+    static final int WIN_MOVE = 6;      // 승리 시 이동 칸 수
+    static final int DRAW_MOVE = 3;     // 비기기 시 이동 칸 수
+    static final int BURNING_MOVE = 3;  // 버닝 효과로 추가 이동 칸 수
+    static final int NUM_PLAYERS = 3;   // 플레이어 수
+    static List<String> horseNames; // 플레이어 말 이름 저장되는 List
     public static void execute() {
         Scanner scanner = new Scanner(System.in);
         // 8888포트 사용, 대기 인원 총 2명.
@@ -40,7 +40,7 @@ public class CreateRoom {
             int[] positions = new int[NUM_PLAYERS]; // 말 위치
             int[] winStreaks = new int[NUM_PLAYERS];  // 연속 승리 횟수를 추적
             // 닉네임 설정
-            SetName(scanner, out, out2, horseNames, in, in2);
+            SetName.SetName(scanner, out, out2, horseNames, in, in2);
             System.out.println("경기가 시작됩니다!");
             while (true) {
 
@@ -55,54 +55,14 @@ public class CreateRoom {
                 boolean f1 = true;
                 boolean f2 = true;
 
-                ob:
-                for (int i = 0; i <= NUM_PLAYERS; i++) {
-                    String choice;
-                    //1번 플레이어 묵찌빠 선택
-                    while (f1) {
-                        System.out.print(horseNames.get(i) + "의 선택은? (묵 / 찌 / 빠): ");
-                        choice = scanner.nextLine();
-                        if (choice.equals("묵") || choice.equals("찌") || choice.equals("빠")) {
-                            choices.add(choice);
-                            f1 = false;
-                            continue ob;
-                        } else {
-                            System.out.println("유효한 선택이 아닙니다. '묵', '찌', '빠' 중 하나를 입력하세요.");
-                        }
-                    }
-                    //2번 플레이어 묵찌빠 선택
-                    while (f2) {
-                        out.println(horseNames.get(i) + "의 선택은? (묵 / 찌 / 빠): ");
-                        String choice2 = in.nextLine(); // 1번이 보낸 값 수신
-                        if (choice2.equals("묵") || choice2.equals("찌") || choice2.equals("빠")) {
-                            choices.add(choice2);
-                            out.println("success");
-                            f2 = false;
-                            continue ob;
-                        } else {
-                            out.println("유효한 선택이 아닙니다. '묵', '찌', '빠' 중 하나를 입력하세요.");
-                        }
-                    }
-                    //3번 플레이어 묵찌빠 선택
-                    while (true) {
-                        out2.println(horseNames.get(i) + "의 선택은? (묵 / 찌 / 빠): ");
-                        String choice3 = in2.nextLine(); // 2번이 보낸 값 수신
-                        if (choice3.equals("묵") || choice3.equals("찌") || choice3.equals("빠")) {
-                            choices.add(choice3);
-                            out2.println("success");
-                            break ob;
-                        } else {
-                            out2.println("유효한 선택이 아닙니다. '묵', '찌', '빠' 중 하나를 입력하세요.");
-                        }
-                    }
-                }//묵찌빠 저장 완료
+                Battle.battle(f1, scanner, choices, f2, out, in, out2, in2);
 
                 System.out.println("묵찌빠 완료");
                 out.println("묵찌빠 완료");
                 out2.println("묵찌빠 완료");
 
                 // 게임 결과 결정
-                String result = determineOutcome(choices);
+                String result = DetermineOutcome.determineOutcome(choices);
 
                 for (int i = 0; i < 3; i++) {
                     try {
@@ -154,23 +114,13 @@ public class CreateRoom {
                     out2.println("burning");
                 }
 
-                //여기까지 joinRoom에서 수신
-
-
                 // 위치 업데이트
                 for (int i = 0; i < NUM_PLAYERS; i++) {
                     if (positions[i] > FINISH_LINE) positions[i] = FINISH_LINE;
                 }
 
-                clearConsole();
+                ClearConsole.clearConsole();
 
-
-
-//                printRaceTrack(horseNames, positions, FINISH_LINE);
-
-
-
-//aaaa
                 StringBuilder[] tracks = new StringBuilder[NUM_PLAYERS];
                 for (int i = 0; i < NUM_PLAYERS; i++) {
                     tracks[i] = new StringBuilder();
@@ -204,31 +154,15 @@ public class CreateRoom {
 
                 }
 
-                //aaaa
-
-
-
-
-
-
-
-
-
-
-
-
-
+                ///여기까지 완료
                 if (isRaceFinished(positions)) {
                     break;
                 }
-
                 try {
                     Thread.sleep(2000); // 2초 대기
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-
-
             }
 
         } catch (Exception e) {
@@ -237,89 +171,7 @@ public class CreateRoom {
 
     }
 
-    //닉네임 설정
-    private static void SetName(Scanner scanner, PrintStream out, PrintStream out2, List<String> horseNames, Scanner in, Scanner in2) {
-        // 키보드 입력을 받아서 서버1,2에게 전송한다.
-        System.out.print("말 이름을 입력하세요 (두 글자): ");
-        String input = scanner.nextLine();
-        out.println(input);
-        out2.println(input);
-        horseNames.add(input); // 1번 마 이름
-
-        System.out.println("사용자2 가 입력 중입니다.");
-
-        // 서버1이 보낸 데이터를 수신한다.
-        String str = in.nextLine();
-        System.out.println("2번 플레이어 : " + str);
-        // 서버 2에게 전송
-        out2.println(str);
-        horseNames.add(str); // 2번 마 이름
-
-
-        System.out.println("사용자3 이 입력 중입니다.");
-
-        // 서버2가 보낸 데이터를 수신한다.
-        String str2 = in2.nextLine();
-        System.out.println("3번 플레이어 : " + str2);
-        // 서버1에게 전송
-        out.println(str2);
-        horseNames.add(str2); // 3번 마 이름
-
-        int index = 1;
-        // 서버,1,2 에게 말 이름 전송
-        for (String horseName : horseNames) {
-            System.out.println((index) + "번째 플레이어 : " + horseName);
-            out.println((index) + "번째 플레이어 : " + horseName);
-            out2.println((index++) + "번째 플레이어 : " + horseName);
-        }
-    }
-    private static String determineOutcome(List<String> choices) {
-        List<String> winners = new ArrayList<>();
-        Set<String> uniqueChoices = new HashSet<>(choices);
-
-        // 모든 선택이 서로 같을 경우 무승부 처리
-        if (uniqueChoices.size() == 1) {
-            return "무승부";
-        }
-
-        // 모든 선택이 서로 다를 경우 무승부 처리
-        if (uniqueChoices.size() == NUM_PLAYERS) {
-            return "무승부";
-        }
-
-        // 승리 조건을 평가합니다.
-        String[] choiceArray = choices.toArray(new String[0]);
-        boolean[] isWinner = new boolean[NUM_PLAYERS];
-
-        for (int i = 0; i < NUM_PLAYERS; i++) {
-            boolean winner = true;
-            for (int j = 0; j < NUM_PLAYERS; j++) {
-                if (i != j) {
-                    String result = getMatchResult(choiceArray[i], choiceArray[j]);
-                    if (result.equals("패배")) {
-                        winner = false;
-                        break;
-                    }
-                }
-            }
-            isWinner[i] = winner;
-        }
-
-        // 결과를 승리로 설정
-        for (int i = 0; i < NUM_PLAYERS; i++) {
-            if (isWinner[i]) {
-                winners.add(horseNames.get(i) + " 승리");
-            }
-        }
-
-        if (winners.isEmpty()) {
-            return "무승부";
-        } else {
-            return String.join(", ", winners);
-        }
-    }
-
-    private static String getMatchResult(String choice1, String choice2) {
+    public static String getMatchResult(String choice1, String choice2) {
         if (choice1.equals(choice2)) {
             return "무승부";
         }
@@ -333,40 +185,7 @@ public class CreateRoom {
         }
     }
 
-    private static void clearConsole() {
-        // 콘솔 화면을 지우기 위한 ANSI 이스케이프 코드 사용
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    private static void printRaceTrack(List<String> horseNames, int[] positions, int finishLine) {
-        StringBuilder[] tracks = new StringBuilder[NUM_PLAYERS];
-        for (int i = 0; i < NUM_PLAYERS; i++) {
-            tracks[i] = new StringBuilder();
-        }
-
-        for (int i = 0; i <= finishLine; i++) {
-            for (int j = 0; j < NUM_PLAYERS; j++) {
-                if (i == positions[j]) {
-                    tracks[j].append("🏇");
-                } else {
-                    tracks[j].append(" ");
-                }
-            }
-        }
-
-        for (int i = 0; i < NUM_PLAYERS; i++) {
-            tracks[i].append("🏁");
-        }
-
-        System.out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
-        for (int i = 0; i < NUM_PLAYERS; i++) {
-            System.out.println(horseNames.get(i) + " " + tracks[i].toString());
-            System.out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
-        }
-    }
-
-    private static boolean isRaceFinished(int[] positions) {
+    public static boolean isRaceFinished(int[] positions) {
         for (int position : positions) {
             if (position >= FINISH_LINE) {
                 return true;
