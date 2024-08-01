@@ -101,6 +101,8 @@ public class SecondPlayer extends Player {
         }
         System.out.println(in.nextLine());
         System.out.println(in.nextLine());
+        System.out.println(in.nextLine());
+        System.out.println(in.nextLine());
         out.println("yes");
     }
 }
