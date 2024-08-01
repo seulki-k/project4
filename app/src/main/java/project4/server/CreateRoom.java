@@ -192,7 +192,7 @@ public class CreateRoom {
 
             }
         } catch (Exception e) {
-//            System.err.println("서버 소켓 처리 중 오류: " + e.getMessage());
+            System.err.println("서버 소켓 처리 중 오류: " + e.getMessage());
         }
 
     }
@@ -257,4 +257,5 @@ public class CreateRoom {
             System.out.println("🎉무승부입니다!🎉");
         }
     }
+
 }
