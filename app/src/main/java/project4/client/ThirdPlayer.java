@@ -47,11 +47,11 @@ public class ThirdPlayer extends Player{
             System.out.println(" ");
             System.out.println("\n✊✌️✋");
 
-            str = in.nextLine();
-            System.out.println(str);
+            System.out.println(in.nextLine());
+            System.out.println(in.nextLine());
 
-            str = in.nextLine();
-            System.out.println(str);
+            System.out.println(in.nextLine());
+            System.out.println(in.nextLine());
 
             //묵찌빠 값 전달
             while (true) {
@@ -69,7 +69,6 @@ public class ThirdPlayer extends Player{
                     System.out.println(str); // 틀린 값으로 다시 입력하세요.
                 }
             }//묵찌빠 완료
-
 
             System.out.println(in.nextLine()); //완료 수신
 

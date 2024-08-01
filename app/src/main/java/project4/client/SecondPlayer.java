@@ -51,8 +51,8 @@ public class SecondPlayer extends Player {
             System.out.println(" ");
             System.out.println("\n✊✌️✋");
 
-            str = in.nextLine();
-            System.out.println(str);
+            System.out.println(in.nextLine());
+            System.out.println(in.nextLine());
 
             //묵찌빠 값 전달
             while (true) {
@@ -71,9 +71,8 @@ public class SecondPlayer extends Player {
                 }
             } //묵찌빠 완료
 
-            str = in.nextLine();
-            System.out.println(str);
-
+            System.out.println(in.nextLine());
+            System.out.println(in.nextLine());
 
             System.out.println(in.nextLine()); //완료 수신
 
