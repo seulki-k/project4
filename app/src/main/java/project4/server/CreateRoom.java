@@ -6,12 +6,13 @@ import java.net.Socket;
 import java.util.*;
 
 public class CreateRoom {
-    static final int FINISH_LINE = 50;  // 결승선 위치
+    static final int FINISH_LINE = 5;  // 결승선 위치
     static final int WIN_MOVE = 6;      // 승리 시 이동 칸 수
     static final int DRAW_MOVE = 3;     // 비기기 시 이동 칸 수
     static final int BURNING_MOVE = 3;  // 버닝 효과로 추가 이동 칸 수
     static final int NUM_PLAYERS = 3;   // 플레이어 수
     static List<String> horseNames; // 플레이어 말 이름 저장되는 List
+
     public static void execute() {
         Scanner scanner = new Scanner(System.in);
         // 8888포트 사용, 대기 인원 총 2명.
@@ -34,7 +35,7 @@ public class CreateRoom {
             out.println("start");
             out2.println("start");
 
-            horseNames =  new ArrayList<>();
+            horseNames = new ArrayList<>();
             // 게임 스타트
 
             int[] positions = new int[NUM_PLAYERS]; // 말 위치
@@ -80,7 +81,7 @@ public class CreateRoom {
                 // 결과에 따라 말 이동 및 연속 승리 횟수 업데이트
                 String burning1 = "";
                 String burning2 = "";
-                int count =0;
+                int count = 0;
                 for (int i = 0; i < NUM_PLAYERS; i++) {
                     if (result.contains(horseNames.get(i) + " 승리")) {
                         positions[i] += WIN_MOVE;
@@ -105,10 +106,10 @@ public class CreateRoom {
                     }
                 }
 
-                if (count==0){
+                if (count == 0) {
                     out.println("noburning");
                     out2.println("noburning");
-                }else {
+                } else {
                     //버닝 확인 종료
                     out.println("burning");
                     out2.println("burning");
@@ -159,7 +160,7 @@ public class CreateRoom {
                     out.println("end");
                     out2.println("end");
                     break;
-                }else {
+                } else {
                     out.println("play");
                     out2.println("play");
 
@@ -170,8 +171,26 @@ public class CreateRoom {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
 
+            }
+            ClearConsole.clearConsole();
+            announceWinner(positions, horseNames, out, out2);
+
+            String instr1 = new String();
+            String instr2 = new String();
+            while (true) {
+                if (instr1.isEmpty()) {
+                    instr1 = in.nextLine();
+                }
+                if (instr2.isEmpty()) {
+                    instr2 = in2.nextLine();
+                }
+
+                if (!instr1.isEmpty() && !instr2.isEmpty()) {
+                    break;
+                }
+
+            }
         } catch (Exception e) {
             System.err.println("서버 소켓 처리 중 오류: " + e.getMessage());
         }
@@ -199,5 +218,43 @@ public class CreateRoom {
             }
         }
         return false;
+    }
+
+    private static void announceWinner(int[] positions, List<String> horseNames, PrintStream out, PrintStream out2) {
+        List<String> winners = new ArrayList<>();
+        for (int i = 0; i < NUM_PLAYERS; i++) {
+            if (positions[i] >= FINISH_LINE) {
+                winners.add(horseNames.get(i));
+            }
+        }
+
+        if (winners.size() > 1) {
+            System.out.println("\n경기가 종료되었습니다!");
+            System.out.println("🎉승자는 " + String.join(", ", winners) + "입니다!🎉");
+
+            out.println("\n경기가 종료되었습니다!");
+            out.println("🎉승자는 " + String.join(", ", winners) + "입니다!🎉");
+
+            out2.println("\n경기가 종료되었습니다!");
+            out2.println("🎉승자는 " + String.join(", ", winners) + "입니다!🎉");
+        } else if (winners.size() == 1) {
+            System.out.println("\n경기가 종료되었습니다!");
+            System.out.println("\n" + "🎉" + winners.get(0) + "가(이) 승리했습니다!🎉");
+
+            out.println("\n경기가 종료되었습니다!");
+            out.println("\n" + "🎉" + winners.get(0) + "가(이) 승리했습니다!🎉");
+
+            out2.println("\n경기가 종료되었습니다!");
+            out2.println("\n" + "🎉" + winners.get(0) + "가(이) 승리했습니다!🎉");
+        } else {
+            System.out.println("\n경기가 종료되었습니다!");
+            System.out.println("🎉무승부입니다!🎉");
+
+            System.out.println("\n경기가 종료되었습니다!");
+            System.out.println("🎉무승부입니다!🎉");
+
+            System.out.println("\n경기가 종료되었습니다!");
+            System.out.println("🎉무승부입니다!🎉");
+        }
     }
 }

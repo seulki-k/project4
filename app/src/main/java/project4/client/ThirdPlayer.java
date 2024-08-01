@@ -77,5 +77,8 @@ public class ThirdPlayer extends Player{
                 e.printStackTrace();
             }
         }
+        System.out.println(in.nextLine());
+        System.out.println(in.nextLine());
+        out.println("yes");
     }
 }
