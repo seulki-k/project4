@@ -26,7 +26,7 @@ public class Player {
     public static void threeSecondWait() {
         for (int i = 0; i < 3; i++) {
             try {
-                Thread.sleep(1000); // 1초 대기
+                Thread.sleep(3000); // 1초 대기
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

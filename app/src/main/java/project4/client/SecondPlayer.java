@@ -68,6 +68,9 @@ public class SecondPlayer extends Player {
 
             positionHorse(in); // 말 위치 출력
 
+            if (in.nextLine().equals("end")) {
+                break;
+            }
             try {
                 Thread.sleep(2000); // 2초 대기
             } catch (InterruptedException e) {

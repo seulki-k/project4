@@ -156,6 +156,8 @@ public class CreateRoom {
 
                 ///여기까지 완료
                 if (isRaceFinished(positions)) {
+                    out.println("end");
+                    out2.println("end");
                     break;
                 }
 

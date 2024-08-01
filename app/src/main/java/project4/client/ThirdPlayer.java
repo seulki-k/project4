@@ -62,8 +62,11 @@ public class ThirdPlayer extends Player{
 
             ClearConsole.clearConsole();
 
-
             positionHorse(in); // 말 위치 확인
+
+            if (in.nextLine().equals("end")) {
+                break;
+            }
 
             try {
                 Thread.sleep(2000); // 2초 대기
