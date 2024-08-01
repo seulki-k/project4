@@ -64,6 +64,12 @@ public class ThirdPlayer extends Player{
 
 
             positionHorse(in); // 말 위치 확인
+
+            try {
+                Thread.sleep(2000); // 2초 대기
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -158,6 +158,7 @@ public class CreateRoom {
                 if (isRaceFinished(positions)) {
                     break;
                 }
+
                 try {
                     Thread.sleep(2000); // 2초 대기
                 } catch (InterruptedException e) {
