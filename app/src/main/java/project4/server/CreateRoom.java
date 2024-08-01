@@ -6,7 +6,7 @@ import java.net.Socket;
 import java.util.*;
 
 public class CreateRoom {
-    static final int FINISH_LINE = 5;  // 결승선 위치
+    static final int FINISH_LINE = 10;  // 결승선 위치
     static final int WIN_MOVE = 6;      // 승리 시 이동 칸 수
     static final int DRAW_MOVE = 3;     // 비기기 시 이동 칸 수
     static final int BURNING_MOVE = 3;  // 버닝 효과로 추가 이동 칸 수
