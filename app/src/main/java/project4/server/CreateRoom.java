@@ -58,6 +58,8 @@ public class CreateRoom {
 
                 Battle.battle(f1, scanner, choices, f2, out, in, out2, in2);
 
+
+
                 System.out.println("묵찌빠 완료");
                 out.println("묵찌빠 완료");
                 out2.println("묵찌빠 완료");
