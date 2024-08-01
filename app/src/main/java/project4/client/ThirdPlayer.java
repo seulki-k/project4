@@ -52,6 +52,7 @@ public class ThirdPlayer extends Player{
                 }
             }//묵찌빠 완료
 
+
             System.out.println(in.nextLine()); //완료 수신
 
             threeSecondWait();
@@ -66,6 +67,8 @@ public class ThirdPlayer extends Player{
 
             if (in.nextLine().equals("end")) {
                 break;
+            }else {
+                System.out.print("");
             }
 
             try {

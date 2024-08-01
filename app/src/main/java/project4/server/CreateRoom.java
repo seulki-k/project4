@@ -159,6 +159,10 @@ public class CreateRoom {
                     out.println("end");
                     out2.println("end");
                     break;
+                }else {
+                    out.println("play");
+                    out2.println("play");
+
                 }
 
                 try {

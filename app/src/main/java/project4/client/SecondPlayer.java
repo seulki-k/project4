@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class SecondPlayer extends Player {
     public static void execute(PrintStream out, Scanner in) throws Exception {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("플레이어를 기다리는 중....");
         //마지막 플레이어 입장했다는 신호 수신
         String str = in.nextLine();
@@ -16,7 +17,7 @@ public class SecondPlayer extends Player {
         System.out.println("1번 플레이어 : " + str);
         // 키보드 입력을 받아서 서버에게 전송한다.
         System.out.print("말 이름을 입력하세요 (두 글자): ");
-        String input = JoinRoom.scanner.nextLine();
+        String input = scanner.nextLine();
         out.println(input);
 
         System.out.println("사용자3 이 입력 중입니다.");
@@ -43,7 +44,7 @@ public class SecondPlayer extends Player {
                 str = in.nextLine();
                 System.out.print(str); //묵,찌, 빠 중에 골라라
 
-                input = JoinRoom.scanner.nextLine();
+                input = scanner.nextLine();
                 out.println(input); // 값 전달
 
                 str = in.nextLine(); //저장 결과
@@ -54,6 +55,7 @@ public class SecondPlayer extends Player {
                     System.out.println(str); // 틀린 값으로 다시 입력하세요.
                 }
             } //묵찌빠 완료
+
 
             System.out.println(in.nextLine()); //완료 수신
 
@@ -70,7 +72,10 @@ public class SecondPlayer extends Player {
 
             if (in.nextLine().equals("end")) {
                 break;
+            }else {
+                System.out.print("");
             }
+
             try {
                 Thread.sleep(2000); // 2초 대기
             } catch (InterruptedException e) {
