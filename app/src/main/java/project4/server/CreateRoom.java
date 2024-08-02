@@ -1,5 +1,7 @@
 package project4.server;
 
+import project4.common.Sound;
+
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -43,6 +45,7 @@ public class CreateRoom {
             // 닉네임 설정
             SetName.SetName(scanner, out, out2, horseNames, in, in2);
             System.out.println("경기가 시작됩니다!");
+            Sound.horseSound();
             while (true) {
 
                 System.out.println(" ");

@@ -1,5 +1,6 @@
 package project4.client;
 
+import project4.common.Sound;
 import project4.server.ClearConsole;
 
 import java.io.PrintStream;
@@ -44,7 +45,7 @@ public class SecondPlayer extends Player {
             System.out.println(str);
         }
         System.out.println("경기가 시작됩니다!");
-
+        Sound.horseSound();
         while (true) {
             System.out.println(" ");
             System.out.println(" ");
