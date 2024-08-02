@@ -1,5 +1,6 @@
 package project4.server;
 
+import project4.common.ClearConsole;
 import project4.common.Sound;
 
 import java.io.PrintStream;
@@ -83,33 +84,7 @@ public class CreateRoom {
                 out.println("[결과] " + result);
                 out2.println("[결과] " + result);
 
-                // 결과에 따라 말 이동 및 연속 승리 횟수 업데이트
-                String burning1 = "";
-                String burning2 = "";
-                int count = 0;
-                for (int i = 0; i < NUM_PLAYERS; i++) {
-                    if (result.contains(horseNames.get(i) + " 승리")) {
-                        positions[i] += WIN_MOVE;
-                        winStreaks[i]++;
-                        if (winStreaks[i] >= 2) {  // 두 번 연속 승리 시
-                            count++;
-                            positions[i] += BURNING_MOVE;
-                            burning1 = "🔥 " + horseNames.get(i) + " 버닝!🔥";
-                            System.out.println(burning1);
-                            out.println(burning1);
-                            out2.println(burning1);
-                            burning2 = "🔥추가 " + BURNING_MOVE + "칸 이동!🔥";
-                            System.out.println(burning2);
-                            out.println(burning2);
-                            out2.println(burning2);
-                        }
-                    } else if (result.equals("무승부")) {
-                        positions[i] += DRAW_MOVE;
-                        winStreaks[i] = 0;
-                    } else {
-                        winStreaks[i] = 0;
-                    }
-                }
+                int count = movePosition.movePosition(result, positions, winStreaks, out, out2);
 
                 if (count == 0) {
                     out.println("noburning");
@@ -127,40 +102,8 @@ public class CreateRoom {
 
                 ClearConsole.clearConsole();
 
-                StringBuilder[] tracks = new StringBuilder[NUM_PLAYERS];
-                for (int i = 0; i < NUM_PLAYERS; i++) {
-                    tracks[i] = new StringBuilder();
-                }
+                PrintPosition.printPosition(positions, out, out2);
 
-                for (int i = 0; i <= FINISH_LINE; i++) {
-                    for (int j = 0; j < NUM_PLAYERS; j++) {
-                        if (i == positions[j]) {
-                            tracks[j].append("🏇");
-                        } else {
-                            tracks[j].append(" ");
-                        }
-                    }
-                }
-
-                for (int i = 0; i < NUM_PLAYERS; i++) {
-                    tracks[i].append("🏁");
-                }
-
-                System.out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
-                out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
-                out2.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
-
-                for (int i = 0; i < NUM_PLAYERS; i++) {
-                    System.out.println(horseNames.get(i) + " " + tracks[i].toString());
-                    out.println(horseNames.get(i) + " " + tracks[i].toString());
-                    out2.println(horseNames.get(i) + " " + tracks[i].toString());
-                    System.out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
-                    out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
-                    out2.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
-
-                }
-
-                ///여기까지 완료
                 if (isRaceFinished(positions)) {
                     out.println("end");
                     out2.println("end");
@@ -179,7 +122,7 @@ public class CreateRoom {
 
             }
             ClearConsole.clearConsole();
-            announceWinner(positions, horseNames, out, out2);
+            AnnounceWinner.announceWinner(positions, horseNames, out, out2);
 
             String instr1 = new String();
             String instr2 = new String();
@@ -223,44 +166,6 @@ public class CreateRoom {
             }
         }
         return false;
-    }
-
-    private static void announceWinner(int[] positions, List<String> horseNames, PrintStream out, PrintStream out2) {
-        List<String> winners = new ArrayList<>();
-        for (int i = 0; i < NUM_PLAYERS; i++) {
-            if (positions[i] >= FINISH_LINE) {
-                winners.add(horseNames.get(i));
-            }
-        }
-
-        if (winners.size() > 1) {
-            System.out.println("\n경기가 종료되었습니다!");
-            System.out.println("\n🎉승자는 " + String.join(", ", winners) + "입니다!🎉");
-
-            out.println("\n경기가 종료되었습니다!");
-            out.println("\n🎉승자는 " + String.join(", ", winners) + "입니다!🎉");
-
-            out2.println("\n경기가 종료되었습니다!");
-            out2.println("\n🎉승자는 " + String.join(", ", winners) + "입니다!🎉");
-        } else if (winners.size() == 1) {
-            System.out.println("\n경기가 종료되었습니다!");
-            System.out.println("\n" + "🎉" + winners.get(0) + "가(이) 승리했습니다!🎉");
-
-            out.println("\n경기가 종료되었습니다!");
-            out.println("\n" + "🎉" + winners.get(0) + "가(이) 승리했습니다!🎉");
-
-            out2.println("\n경기가 종료되었습니다!");
-            out2.println("\n" + "🎉" + winners.get(0) + "가(이) 승리했습니다!🎉");
-        } else {
-            System.out.println("\n경기가 종료되었습니다!");
-            System.out.println("\n🎉무승부입니다!🎉");
-
-            out.println("\n경기가 종료되었습니다!");
-            out.println("\n🎉무승부입니다!🎉");
-
-            out2.println("\n경기가 종료되었습니다!");
-            out2.println("\n🎉무승부입니다!🎉");
-        }
     }
 
 }

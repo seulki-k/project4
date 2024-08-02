@@ -1,4 +1,4 @@
-package project4.server;
+package project4.common;
 
 public class ClearConsole {
     public static void clearConsole() {

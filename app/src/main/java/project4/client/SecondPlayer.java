@@ -1,7 +1,7 @@
 package project4.client;
 
 import project4.common.Sound;
-import project4.server.ClearConsole;
+import project4.common.ClearConsole;
 
 import java.io.PrintStream;
 import java.util.Scanner;
