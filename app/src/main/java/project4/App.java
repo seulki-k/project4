@@ -37,8 +37,19 @@ public class App {
     }
 
     private static void mainMenu(int index) {
-        for (String menu : menus) {
-            System.out.println((index++) + ". " + menu);
-        }
+        System.out.println("===================================================");
+        System.out.println("               🐎 묵찌빠 경마 게임 🐎               ");
+        System.out.println("===================================================");
+        System.out.println();
+        System.out.println("                  /\\_/\\    ----    /\\_/\\            ");
+        System.out.println("                 ( o.o )   ----   ( o.o )           ");
+        System.out.println("                  > ^ <    ----    > ^ <            ");
+        System.out.println("        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       ");
+        System.out.println("                  [1] 게임 생성                       ");
+        System.out.println("                  [2] 게임 입장                       ");
+        System.out.println("                  [3] 종료                           ");
+        System.out.println("        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~       ");
+        System.out.println("===================================================");
+
     }
 }
