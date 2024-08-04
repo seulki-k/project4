@@ -14,6 +14,7 @@ public class App {
 
         while (true) {
             mainMenu(index);
+            System.out.print("선택: ");
             String input = scanner.nextLine();
             try {
                 int command = Integer.parseInt(input);
