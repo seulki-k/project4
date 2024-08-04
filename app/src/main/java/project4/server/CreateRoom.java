@@ -4,6 +4,7 @@ import project4.common.ClearConsole;
 import project4.common.Sound;
 
 import java.io.PrintStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
@@ -19,7 +20,13 @@ public class CreateRoom {
     public static void execute() {
         Scanner scanner = new Scanner(System.in);
         // 8888포트 사용, 대기 인원 총 2명.
-        try (ServerSocket socket = new ServerSocket(8888, 2)) {
+        int port = 8888;
+        try (ServerSocket socket = new ServerSocket(port, 2)) {
+
+            InetAddress localHost = InetAddress.getLocalHost();
+            String localIPAddress = localHost.getHostAddress();
+            System.out.println("\n IP 주소: " + localIPAddress + ", 포트 주소: " +  port +"\n");
+
             System.out.println("🐎묵찌빠 경마 게임에 오신 것을 환영합니다!🐎");
             System.out.println("각 플레이어가 자신의 말을 선택하고 경주를 시작합니다.\n");
             // 게임 대기 중
