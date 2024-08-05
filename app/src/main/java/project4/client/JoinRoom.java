@@ -31,7 +31,7 @@ public class JoinRoom {
                 ThirdPlayer.thirdPlayer(out, in);
             }
         } catch (Exception e) {
-
+            System.out.println("접속 오류");
         }
     }
 
