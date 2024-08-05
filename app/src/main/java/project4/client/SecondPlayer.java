@@ -37,13 +37,13 @@ public class SecondPlayer extends Player {
         System.out.println("사용자3 이 입력 중입니다.");
         // 서버가 보낸 데이터를 수신한다.
         str = in.nextLine();
-        System.out.println("3번 플레이어 : " + str);
 
         // 말 이름 출력
         for (int i = 0; i < 3; i++) {
             str = in.nextLine();
             System.out.println(str);
         }
+
         System.out.println("경기가 시작됩니다!");
         Sound.horseSound();
         while (true) {
