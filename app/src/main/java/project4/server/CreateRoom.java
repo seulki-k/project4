@@ -10,12 +10,13 @@ import java.net.Socket;
 import java.util.*;
 
 public class CreateRoom {
-    static final int FINISH_LINE = 10;  // 결승선 위치
+    static final int FINISH_LINE = 50;  // 결승선 위치
     static final int WIN_MOVE = 6;      // 승리 시 이동 칸 수
     static final int DRAW_MOVE = 3;     // 비기기 시 이동 칸 수
     static final int BURNING_MOVE = 3;  // 버닝 효과로 추가 이동 칸 수
     static final int NUM_PLAYERS = 3;   // 플레이어 수
     static List<String> horseNames; // 플레이어 말 이름 저장되는 List
+    static List<String> choices;
 
     public static void execute() {
         Scanner scanner = new Scanner(System.in);
@@ -62,7 +63,7 @@ public class CreateRoom {
                 System.out.println("\n✊✌️✋");
 
                 // 플레이어의 선택 입력
-                List<String> choices = new ArrayList<>();
+                choices = new ArrayList<>();
 
                 boolean f1 = true;
                 boolean f2 = true;
@@ -90,6 +91,7 @@ public class CreateRoom {
                 System.out.println("[결과] " + result);
                 out.println("[결과] " + result);
                 out2.println("[결과] " + result);
+
 
                 int count = movePosition.movePosition(result, positions, winStreaks, out, out2);
 
@@ -140,7 +142,6 @@ public class CreateRoom {
                 if (instr2.isEmpty()) {
                     instr2 = in2.nextLine();
                 }
-
                 if (!instr1.isEmpty() && !instr2.isEmpty()) {
                     break;
                 }

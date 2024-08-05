@@ -9,6 +9,7 @@ public class PrintPosition {
             tracks[i] = new StringBuilder();
         }
 
+
         for (int i = 0; i <= CreateRoom.FINISH_LINE; i++) {
             for (int j = 0; j < CreateRoom.NUM_PLAYERS; j++) {
                 if (i == positions[j]) {
@@ -28,13 +29,12 @@ public class PrintPosition {
         out2.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
 
         for (int i = 0; i < CreateRoom.NUM_PLAYERS; i++) {
-            System.out.println(CreateRoom.horseNames.get(i) + " " + tracks[i].toString());
-            out.println(CreateRoom.horseNames.get(i) + " " + tracks[i].toString());
-            out2.println(CreateRoom.horseNames.get(i) + " " + tracks[i].toString());
+            System.out.println(CreateRoom.horseNames.get(i) + "[" + CreateRoom.choices.get(i) + "]" + " " + tracks[i].toString());
+            out.println(CreateRoom.horseNames.get(i) + "[" + CreateRoom.choices.get(i) + "]" + " " + tracks[i].toString());
+            out2.println(CreateRoom.horseNames.get(i) + "[" + CreateRoom.choices.get(i) + "]" + " " + tracks[i].toString());
             System.out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
             out.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
             out2.println("――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");
-
         }
     }
 }
