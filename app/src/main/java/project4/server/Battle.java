@@ -26,12 +26,12 @@ public class Battle {
                 }
             }
 
-            System.out.println(CreateRoom.horseNames.get(i) + "가 입력중입니다.");
 
             //2번 플레이어 묵찌빠 선택
             while (f2) {
-                out2.println(CreateRoom.horseNames.get(i) + "가 입력중입니다.");
+                System.out.println(CreateRoom.horseNames.get(i) + "가 입력중입니다.");
                 out.println(CreateRoom.horseNames.get(i) + "의 선택은? (묵 / 찌 / 빠): ");
+                out2.println(CreateRoom.horseNames.get(i) + "가 입력중입니다.");
                 String choice2 = in.nextLine(); // 1번이 보낸 값 수신
                 if (choice2.equals("묵") || choice2.equals("찌") || choice2.equals("빠")) {
                     System.out.println(CreateRoom.horseNames.get(i) + "가 입력을 마쳤습니다.");
@@ -46,6 +46,7 @@ public class Battle {
             }
             //3번 플레이어 묵찌빠 선택
             while (true) {
+                System.out.println(CreateRoom.horseNames.get(i) + "가 입력중입니다.");
                 out.println(CreateRoom.horseNames.get(i) + "가 입력중입니다.");
                 out2.println(CreateRoom.horseNames.get(i) + "의 선택은? (묵 / 찌 / 빠): ");
                 String choice3 = in2.nextLine(); // 2번이 보낸 값 수신
