@@ -52,11 +52,11 @@ public class SecondPlayer extends Player {
             System.out.println(" ");
             System.out.println("\n✊✌️✋");
 
-            System.out.println(in.nextLine());
-            System.out.println(in.nextLine());
 
+            System.out.println("다른 플레이어의 입력 대기 중...");
             //묵찌빠 값 전달
             while (true) {
+
                 str = in.nextLine();
                 System.out.print(str); //묵,찌, 빠 중에 골라라
 
@@ -71,10 +71,7 @@ public class SecondPlayer extends Player {
                     System.out.println(str); // 틀린 값으로 다시 입력하세요.
                 }
             } //묵찌빠 완료
-
-            System.out.println(in.nextLine());
-            System.out.println(in.nextLine());
-
+            System.out.println("다른 플레이어의 입력 대기 중...");
             System.out.println(in.nextLine()); //완료 수신
 
             threeSecondWait();

@@ -11,13 +11,9 @@ public class Battle {
             String choice;
             //1번 플레이어 묵찌빠 선택
             while (f1) {
-                out.println(CreateRoom.horseNames.get(i) + "가 입력중입니다.");
-                out2.println(CreateRoom.horseNames.get(i) + "가 입력중입니다.");
                 System.out.print(CreateRoom.horseNames.get(i) + "의 선택은? (묵 / 찌 / 빠): ");
                 choice = scanner.nextLine();
                 if (choice.equals("묵") || choice.equals("찌") || choice.equals("빠")) {
-                    out.println(CreateRoom.horseNames.get(i) + "가 입력을 마쳤습니다.");
-                    out2.println(CreateRoom.horseNames.get(i) + "가 입력을 마쳤습니다.");
                     choices.add(choice);
                     f1 = false;
                     continue ob;
@@ -26,16 +22,12 @@ public class Battle {
                 }
             }
 
-
+            System.out.println("다른 플레이어의 입력 대기 중...");
             //2번 플레이어 묵찌빠 선택
             while (f2) {
-                System.out.println(CreateRoom.horseNames.get(i) + "가 입력중입니다.");
                 out.println(CreateRoom.horseNames.get(i) + "의 선택은? (묵 / 찌 / 빠): ");
-                out2.println(CreateRoom.horseNames.get(i) + "가 입력중입니다.");
                 String choice2 = in.nextLine(); // 1번이 보낸 값 수신
                 if (choice2.equals("묵") || choice2.equals("찌") || choice2.equals("빠")) {
-                    System.out.println(CreateRoom.horseNames.get(i) + "가 입력을 마쳤습니다.");
-                    out2.println(CreateRoom.horseNames.get(i) + "가 입력을 마쳤습니다.");
                     choices.add(choice2);
                     out.println("success");
                     f2 = false;
@@ -46,13 +38,9 @@ public class Battle {
             }
             //3번 플레이어 묵찌빠 선택
             while (true) {
-                System.out.println(CreateRoom.horseNames.get(i) + "가 입력중입니다.");
-                out.println(CreateRoom.horseNames.get(i) + "가 입력중입니다.");
                 out2.println(CreateRoom.horseNames.get(i) + "의 선택은? (묵 / 찌 / 빠): ");
                 String choice3 = in2.nextLine(); // 2번이 보낸 값 수신
                 if (choice3.equals("묵") || choice3.equals("찌") || choice3.equals("빠")) {
-                    System.out.println(CreateRoom.horseNames.get(i) + "가 입력을 마쳤습니다.");
-                    out.println(CreateRoom.horseNames.get(i) + "가 입력을 마쳤습니다.");
                     choices.add(choice3);
                     out2.println("success");
                     break ob;

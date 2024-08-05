@@ -48,12 +48,7 @@ public class ThirdPlayer extends Player{
             System.out.println(" ");
             System.out.println("\n✊✌️✋");
 
-            System.out.println(in.nextLine());
-            System.out.println(in.nextLine());
-
-            System.out.println(in.nextLine());
-            System.out.println(in.nextLine());
-
+            System.out.println("다른 플레이어의 입력 대기 중...");
             //묵찌빠 값 전달
             while (true) {
                 str = in.nextLine();
